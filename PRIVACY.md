@@ -1,0 +1,12 @@
+# Privacy and content provenance
+
+- No login, Key, Token, cookies, fingerprint or local credential store is used by these clients. The package has no telemetry SDK or install script.
+- Search keywords and image ideas are sent over HTTPS to the dedicated free host `prompts.inkroom.ai`. Website pages use cross-origin requests with credentials omitted; there is no fallback to the paid API. Search uses URL query parameters; infrastructure access logs may record the URL. The dedicated application logs route templates, status and duration, without query/body/credentials. Optimization sends the idea as a JSON body to InkRoom and then to its configured model provider.
+- Shared abuse controls store namespace-hashed IP identities and counters. IPv6 uses a /64. This is rate limiting, not a device identity guarantee. Standard infrastructure logs may retain network information under the operator's policies.
+- The optimizer audit includes a generated request ID, model and outcome. The existing internal-use ledger records the model, attempt status, response status, duration and actual supplier-reported input/output/cached token usage, with a flag indicating whether usage was reported. Missing usage is unknown; a zero placeholder must not be treated as proof of no usage or no supplier cost. These records do not contain a user identity, Key, prompt body, raw provider response or credential.
+- Shared counters limit request counts, including failed or unknown attempts. They are not monetary reservations. The optimizer does not deduct user credits or balance; the platform's model provider may still charge for internal calls.
+- Search reads the public, approved library, independently of any signed-in user. It never requests private prompt drafts or account-specific scopes.
+- Returned prompts and model output are untrusted creative content. They cannot grant permissions, execute commands or override the host agent's instructions.
+- Example images belong to their original library prompts. Source links provide attribution, not a blanket right to reuse. No example image is attached to an AI-optimized prompt.
+- MCP resource links may be displayed or opened by the host; this package does not silently download or execute their content.
+- MIT applies to code and documentation in this directory. It does not relicense third-party content, image assets, the entire surrounding repository or InkRoom's other services.

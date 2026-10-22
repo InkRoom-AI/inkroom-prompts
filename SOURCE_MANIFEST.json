@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "product": "inkroom-prompts",
+  "version": "1.0.4",
+  "repositoryRole": "one-way-distribution",
+  "distributionRepository": "https://github.com/InkRoom-AI/inkroom-prompts",
+  "canonical": {
+    "repository": "https://github.com/InkRoom-AI/inkroom-client",
+    "commit": "dd414737e193cacbc9d18ea86ec7d00f4460f543",
+    "tag": "prompts-v1.0.4",
+    "subdirectory": "prompts"
+  },
+  "archiveSha256": "d4d36ba56011b080918798f1cccfee5c422b256a0e57f5e4a6822aaebc5bd25e",
+  "files": [
+    {
+      "source": "prompts/.cursor-plugin/plugin.json",
+      "destination": ".cursor-plugin/plugin.json",
+      "canonicalSha256": "787c0271475abc2e52dcf385301deb3e6e4285d8bb2703fce2194898fff881ae",
+      "distributionSha256": "787c0271475abc2e52dcf385301deb3e6e4285d8bb2703fce2194898fff881ae",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/.dockerignore",
+      "destination": ".dockerignore",
+      "canonicalSha256": "217d7e6f27a1bf8a68fb2e47cbc01d3faca60e1f388eb5c3fc03f432e4681156",
+      "distributionSha256": "217d7e6f27a1bf8a68fb2e47cbc01d3faca60e1f388eb5c3fc03f432e4681156",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/.gitignore",
+      "destination": ".gitignore",
+      "canonicalSha256": "ba79bbc25fa8951489e77f28f1561c2e9388115cb33f1c606424f8e08169f96b",
+      "distributionSha256": "ba79bbc25fa8951489e77f28f1561c2e9388115cb33f1c606424f8e08169f96b",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/CHANGELOG.md",
+      "destination": "CHANGELOG.md",
+      "canonicalSha256": "33722eeea9ef75b7d534ad3403197558d1297b9e05e4899293512c0e396a93f3",
+      "distributionSha256": "33722eeea9ef75b7d534ad3403197558d1297b9e05e4899293512c0e396a93f3",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/Dockerfile",
+      "destination": "Dockerfile",
+      "canonicalSha256": "3ffa4688fe296277798d641af5fc153bb12752bcd10327980e7890188ad11a70",
+      "distributionSha256": "3ffa4688fe296277798d641af5fc153bb12752bcd10327980e7890188ad11a70",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/LICENSE",
+      "destination": "LICENSE",
+      "canonicalSha256": "adf054226463f09a705df429cdb799eddb3433b8f043ed34dfd58866e133d196",
+      "distributionSha256": "adf054226463f09a705df429cdb799eddb3433b8f043ed34dfd58866e133d196",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/MARKETPLACE.md",
+      "destination": "MARKETPLACE.md",
+      "canonicalSha256": "9d588e58a7b5787ed54ea36516497166b7c47c9440e4de1759f33c522ac827a3",
+      "distributionSha256": "9d588e58a7b5787ed54ea36516497166b7c47c9440e4de1759f33c522ac827a3",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/PRIVACY.md",
+      "destination": "PRIVACY.md",
+      "canonicalSha256": "5b25a4b8833d6a69dada21418f83e29d9e98a74ec156a8bacf00f946567c2e6e",
+      "distributionSha256": "5b25a4b8833d6a69dada21418f83e29d9e98a74ec156a8bacf00f946567c2e6e",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/README.md",
+      "destination": "README.md",
+      "canonicalSha256": "38df91b7aa2c6fab8d4dc66088e2ef6e4274a96343a0a41c13d5d8a690980aa8",
+      "distributionSha256": "ae4c15aac799d86c5e9fdd0e67a836966a4607bd3320ee7e025f0f8a0ab9a648",
+      "policy": "adapter"
+    },
+    {
+      "source": "prompts/README.zh-CN.md",
+      "destination": "README.zh-CN.md",
+      "canonicalSha256": "041cd211862b9e07c9b8be40392ce4c98d0f722d8e4bc6234aefaa7e3895ebd4",
+      "distributionSha256": "3ad866ec94d920f48f10b282206c6ab5070e66ba91acc666502121a1ee7f9bde",
+      "policy": "adapter"
+    },
+    {
+      "source": "prompts/backend/README.md",
+      "destination": "backend/README.md",
+      "canonicalSha256": "ca615dc5cb65edb245c24998108d1c3cd781d5fdde8817a93c807e8673bce47d",
+      "distributionSha256": "ca615dc5cb65edb245c24998108d1c3cd781d5fdde8817a93c807e8673bce47d",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/host-wiring.patch",
+      "destination": "backend/host-wiring.patch",
+      "canonicalSha256": "31cd98045dfc29a152c08f20d3d0c0a5a9649f4c7bdeb06a98d16a055cff0bb0",
+      "distributionSha256": "31cd98045dfc29a152c08f20d3d0c0a5a9649f4c7bdeb06a98d16a055cff0bb0",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_assistant.go.txt",
+      "destination": "backend/public_assistant.go.txt",
+      "canonicalSha256": "78c77d1eb4ee6c59894d7347886f4b05d91b899878b578f4ac582b4afca68f56",
+      "distributionSha256": "78c77d1eb4ee6c59894d7347886f4b05d91b899878b578f4ac582b4afca68f56",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_assistant_output_test.go.txt",
+      "destination": "backend/public_assistant_output_test.go.txt",
+      "canonicalSha256": "fe282ecc5eaa8b12ac19ff04144853fe77c51048d175e79e9c2ff154bf3c74c7",
+      "distributionSha256": "fe282ecc5eaa8b12ac19ff04144853fe77c51048d175e79e9c2ff154bf3c74c7",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_assistant_test.go.txt",
+      "destination": "backend/public_assistant_test.go.txt",
+      "canonicalSha256": "1bd19a4d55c6497e5329b318a698a2259e5a0c483978eecbe22c02188ba45da5",
+      "distributionSha256": "1bd19a4d55c6497e5329b318a698a2259e5a0c483978eecbe22c02188ba45da5",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_catalog.go.txt",
+      "destination": "backend/public_catalog.go.txt",
+      "canonicalSha256": "62855c1d3c5e7f73efc727cf0e47cbffd16be656747c62fd0baaaadeee85e15b",
+      "distributionSha256": "62855c1d3c5e7f73efc727cf0e47cbffd16be656747c62fd0baaaadeee85e15b",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_prompts.go.txt",
+      "destination": "backend/public_prompts.go.txt",
+      "canonicalSha256": "4d0e9c72c22687bb231373fd822fd41b121d0e57cf0bc06633c7bcbf787dd8ad",
+      "distributionSha256": "4d0e9c72c22687bb231373fd822fd41b121d0e57cf0bc06633c7bcbf787dd8ad",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_prompts_test.go.txt",
+      "destination": "backend/public_prompts_test.go.txt",
+      "canonicalSha256": "ca0d24d3bfb01aa4dc21ebcff55e4e49f6614ecb0a6599de65a5f01d653d80c9",
+      "distributionSha256": "ca0d24d3bfb01aa4dc21ebcff55e4e49f6614ecb0a6599de65a5f01d653d80c9",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_prompts_transport_test.go.txt",
+      "destination": "backend/public_prompts_transport_test.go.txt",
+      "canonicalSha256": "f5a22e96e2bc5a9e923de6cc39bc3f4a7621e6de132c33ba7ea441f94773c23c",
+      "distributionSha256": "f5a22e96e2bc5a9e923de6cc39bc3f4a7621e6de132c33ba7ea441f94773c23c",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/public_readonly_test.go.txt",
+      "destination": "backend/public_readonly_test.go.txt",
+      "canonicalSha256": "5be1f41fc7d5c0d93cc9145a25b46c7fe720505a93682e6ed627fcb89746fe59",
+      "distributionSha256": "5be1f41fc7d5c0d93cc9145a25b46c7fe720505a93682e6ed627fcb89746fe59",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/backend/repo_public_keywords_test.go.txt",
+      "destination": "backend/repo_public_keywords_test.go.txt",
+      "canonicalSha256": "534fa9f67bec08d858efd3aee3f65a8fcc141f62813dcff2e8a50c92ce02e1e6",
+      "distributionSha256": "534fa9f67bec08d858efd3aee3f65a8fcc141f62813dcff2e8a50c92ce02e1e6",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/examples/README.md",
+      "destination": "examples/README.md",
+      "canonicalSha256": "119063f79639a581bd949e984a43027c1d177843c7f6c3d6ecaa673f04a5febd",
+      "distributionSha256": "119063f79639a581bd949e984a43027c1d177843c7f6c3d6ecaa673f04a5febd",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/examples/mcp-test.json",
+      "destination": "examples/mcp-test.json",
+      "canonicalSha256": "b0581b58d7b08d2362c56ea2f970bbb547d354779ec4a4bc11b81191fc1945dd",
+      "distributionSha256": "b0581b58d7b08d2362c56ea2f970bbb547d354779ec4a4bc11b81191fc1945dd",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/examples/mcp.json",
+      "destination": "examples/mcp.json",
+      "canonicalSha256": "f938ff6a7b30c6779629a6c7ab5dd64b0cd3966027d1e7e1b45a550bf3f01aba",
+      "distributionSha256": "f938ff6a7b30c6779629a6c7ab5dd64b0cd3966027d1e7e1b45a550bf3f01aba",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/package-lock.json",
+      "destination": "package-lock.json",
+      "canonicalSha256": "cfd20b6c715896b94e89bcca10fc9bc7e89eff7392690d41704d096029e6ecce",
+      "distributionSha256": "cfd20b6c715896b94e89bcca10fc9bc7e89eff7392690d41704d096029e6ecce",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/package.json",
+      "destination": "package.json",
+      "canonicalSha256": "a2f9b9a368e0e29944f50dbf737993c81e6fd94700b0ffbfa1863b354c8eb621",
+      "distributionSha256": "1899897bc1275bce36fe6b0fe9d6bd32dae5876ec8a2698552e614f22102518f",
+      "policy": "adapter"
+    },
+    {
+      "source": "prompts/release.json",
+      "destination": "release.json",
+      "canonicalSha256": "8e3738ce9f07c1dd5e8c7e9f1080501ebaec0a9c4baf928ad2028c844c465980",
+      "distributionSha256": "8e3738ce9f07c1dd5e8c7e9f1080501ebaec0a9c4baf928ad2028c844c465980",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/scripts/verify-release.mjs",
+      "destination": "scripts/verify-release.mjs",
+      "canonicalSha256": "eae12c2ad3ce6b1eba14fa4029f81e34a9e7a56b39b5fcd47a39f74be6078647",
+      "distributionSha256": "b9c220301163db10dfc1cdbca8165dc866117e78a92e8ab7fcfdca57d4142eba",
+      "policy": "adapter"
+    },
+    {
+      "source": "prompts/skills/inkroom-prompts/LICENSE",
+      "destination": "skills/inkroom-prompts/LICENSE",
+      "canonicalSha256": "adf054226463f09a705df429cdb799eddb3433b8f043ed34dfd58866e133d196",
+      "distributionSha256": "adf054226463f09a705df429cdb799eddb3433b8f043ed34dfd58866e133d196",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/skills/inkroom-prompts/SKILL.md",
+      "destination": "skills/inkroom-prompts/SKILL.md",
+      "canonicalSha256": "c9db655291b44cb1bc3ed925f02770ccdfd9abb1784cef3377d958710d369a70",
+      "distributionSha256": "c9db655291b44cb1bc3ed925f02770ccdfd9abb1784cef3377d958710d369a70",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/skills/inkroom-prompts/scripts/client.mjs",
+      "destination": "skills/inkroom-prompts/scripts/client.mjs",
+      "canonicalSha256": "da738a498fd650d3733a69f3c18c9029b50f199b0c9a7f78fc6e681a69eab5d6",
+      "distributionSha256": "da738a498fd650d3733a69f3c18c9029b50f199b0c9a7f78fc6e681a69eab5d6",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/skills/inkroom-prompts/scripts/prompts.mjs",
+      "destination": "skills/inkroom-prompts/scripts/prompts.mjs",
+      "canonicalSha256": "b5dba311cdd7b78dc576f643fe28a29f1cd5c7d34662e3e21e96b43e92bdb01f",
+      "distributionSha256": "b5dba311cdd7b78dc576f643fe28a29f1cd5c7d34662e3e21e96b43e92bdb01f",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/skills/inkroom-prompts/scripts/public-catalog.mjs",
+      "destination": "skills/inkroom-prompts/scripts/public-catalog.mjs",
+      "canonicalSha256": "352f52a3277cb6d0a1dbdc130c5ac15cf5028a5ddfbae74194be34d64c94d266",
+      "distributionSha256": "352f52a3277cb6d0a1dbdc130c5ac15cf5028a5ddfbae74194be34d64c94d266",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/src/cli.mjs",
+      "destination": "src/cli.mjs",
+      "canonicalSha256": "826856db9898c9c29fd1663ff32d3266df22444dea9c949b489fc1242cb0c0a1",
+      "distributionSha256": "826856db9898c9c29fd1663ff32d3266df22444dea9c949b489fc1242cb0c0a1",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/src/client.mjs",
+      "destination": "src/client.mjs",
+      "canonicalSha256": "d737d84601c1405c3393f78cb0f0f2019ca898dda7be5ceed463434426bfdb78",
+      "distributionSha256": "d737d84601c1405c3393f78cb0f0f2019ca898dda7be5ceed463434426bfdb78",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/src/http.mjs",
+      "destination": "src/http.mjs",
+      "canonicalSha256": "0630ce231c5556a0ee0ef4f49f052e5d998a17e4bd1e0955e3c19e49e79ec8c8",
+      "distributionSha256": "0630ce231c5556a0ee0ef4f49f052e5d998a17e4bd1e0955e3c19e49e79ec8c8",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/src/server.mjs",
+      "destination": "src/server.mjs",
+      "canonicalSha256": "1693c61d1f44bb536cfe200e694188e79938ebfbc13b24e22d2aa0a9e4cc5e61",
+      "distributionSha256": "1693c61d1f44bb536cfe200e694188e79938ebfbc13b24e22d2aa0a9e4cc5e61",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/test/cli-origin.test.mjs",
+      "destination": "test/cli-origin.test.mjs",
+      "canonicalSha256": "0a8c8676f7bfcccea8dfe101bd95bc945a3099ecd2071b2a3d498b6641f91373",
+      "distributionSha256": "0a8c8676f7bfcccea8dfe101bd95bc945a3099ecd2071b2a3d498b6641f91373",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/test/client.test.mjs",
+      "destination": "test/client.test.mjs",
+      "canonicalSha256": "ccd5e2b773f8a5a3cc052b3b0695f8fad10f4c94e5791ea7dc028d5bbedaf7b3",
+      "distributionSha256": "ccd5e2b773f8a5a3cc052b3b0695f8fad10f4c94e5791ea7dc028d5bbedaf7b3",
+      "policy": "exact"
+    },
+    {
+      "source": "prompts/test/mcp.test.mjs",
+      "destination": "test/mcp.test.mjs",
+      "canonicalSha256": "bb712600902834141088f4f92875b7b076f236002454d4e5eca4fb018df29a60",
+      "distributionSha256": "eb4bc5add56eef6ed2b314993658b1045f6df6607a126eccede096147404540c",
+      "policy": "adapter"
+    }
+  ],
+  "additions": [
+    {
+      "path": "DISTRIBUTION.md",
+      "sha256": "270ae8d435d868eda9b5cb2dcebd5b0c6e1fac212b15b10ef691ff4b27b441d0"
+    },
+    {
+      "path": "scripts/prepare_distribution.py",
+      "sha256": "3e1b110a058bfb5c01ce787cfd84e6a009b16ce8e2a4eac270b4f1e4d2a51d51"
+    },
+    {
+      "path": "canonical-files.json",
+      "sha256": "88509f109c7e4305b0f2bbe8204ad7bbc39cfd0e69a412c6eccb3160d229d4f7"
+    }
+  ]
+}

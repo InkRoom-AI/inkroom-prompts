@@ -1,0 +1,62 @@
+diff --git a/internal/application/prompt/service.go b/internal/application/prompt/service.go
+index e28b74bd..0e8e8196 100644
+--- a/internal/application/prompt/service.go
++++ b/internal/application/prompt/service.go
+@@ -71,6 +71,7 @@ type ListQuery struct {
+ 	Sort           string
+ 	FavoriteUserID string // Assigned by the authenticated application boundary, never from request parameters.
+ 	Keyword        string
++	Keywords       []string // Server-assigned literal AND search for the public assistant.
+ 	Tags           []string
+ 	Category       string
+ 	Group          string
+@@ -616,6 +617,7 @@ func (s *Service) listPromptsWithCategories(q ListQuery, categories, readyAssetC
+ 		Sort:                    q.Sort,
+ 		FavoriteUserID:          q.FavoriteUserID,
+ 		Keyword:                 q.Keyword,
++		Keywords:                q.Keywords,
+ 		Tags:                    q.Tags,
+ 		Category:                q.Category,
+ 		Group:                   q.Group,
+diff --git a/internal/domain/prompt/repository/repository.go b/internal/domain/prompt/repository/repository.go
+index 74c1d195..5e89f349 100644
+--- a/internal/domain/prompt/repository/repository.go
++++ b/internal/domain/prompt/repository/repository.go
+@@ -12,6 +12,7 @@ type PromptQuery struct {
+ 	Sort                    string
+ 	FavoriteUserID          string
+ 	Keyword                 string
++	Keywords                []string // Literal AND terms; preserves the legacy Keyword behavior.
+ 	Tags                    []string
+ 	Category                string
+ 	Group                   string
+diff --git a/internal/infrastructure/persistence/prompt/repo.go b/internal/infrastructure/persistence/prompt/repo.go
+index 8e30b43c..1f51e071 100644
+--- a/internal/infrastructure/persistence/prompt/repo.go
++++ b/internal/infrastructure/persistence/prompt/repo.go
+@@ -960,6 +960,11 @@ func applyPromptBaseFilters(tx *gorm.DB, q domainrepo.PromptQuery) *gorm.DB {
+ 		like := "%" + q.Keyword + "%"
+ 		tx = tx.Where("title LIKE ? OR prompt LIKE ?", like, like)
+ 	}
++	for _, term := range q.Keywords {
++		// A keyword is literal text, never a caller-provided LIKE wildcard.
++		like := "%" + strings.NewReplacer("!", "!!", "%", "!%", "_", "!_").Replace(term) + "%"
++		tx = tx.Where("(title LIKE ? ESCAPE '!' OR prompt LIKE ? ESCAPE '!' OR tags LIKE ? ESCAPE '!')", like, like, like)
++	}
+ 	if isActivePromptOption(q.Category) {
+ 		tx = tx.Where("category = ?", q.Category)
+ 	}
+diff --git a/internal/interfaces/handler/prompts/handler.go b/internal/interfaces/handler/prompts/handler.go
+index 36c86f2a..40d6a9a3 100644
+--- a/internal/interfaces/handler/prompts/handler.go
++++ b/internal/interfaces/handler/prompts/handler.go
+@@ -106,7 +106,8 @@ func promptAssetCacheHeaders(version string, queryFree bool) (string, string) {
+ }
+ 
+ type Handler struct {
+-	prompts *promptapp.Service
++	prompts         *promptapp.Service
++	publicAssistant *publicAssistant
+ }
+ 
+ func New(prompts *promptapp.Service) *Handler {

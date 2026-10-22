@@ -1,0 +1,232 @@
+package prompts
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"net/http/httptest"
+	"strconv"
+	"strings"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+
+	promptapp "cloud-canvas/internal/application/prompt"
+	entity "cloud-canvas/internal/domain/prompt/entity"
+	"cloud-canvas/internal/infrastructure/authguard"
+	"github.com/gin-gonic/gin"
+	"github.com/glebarez/sqlite"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+)
+
+type publicTestCatalog struct {
+	err   error
+	calls int
+}
+
+func (p *publicTestCatalog) ListPublicPromptsReadOnly(q promptapp.ListQuery) (promptapp.PromptList, error) {
+	p.calls++
+	if q.Scope != "" || q.FavoriteUserID != "" || q.PageSize > 15 {
+		panic("non-public query")
+	}
+	return promptapp.PromptList{Items: []entity.Prompt{
+		{ID: "coffee", Title: "咖啡馆海报", Prompt: "保留文字周末见", CoverURL: "/api/prompt-assets/coffee/012345678901234567890123.webp", GithubURL: "https://github.com/example/source"},
+		{ID: "other", Title: "other", Prompt: "无关内容"},
+	}}, p.err
+}
+func publicTestStore(t *testing.T) authguard.Store {
+	t.Helper()
+	db, err := gorm.Open(sqlite.Open(":memory:"), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
+	if err != nil {
+		t.Fatal(err)
+	}
+	sqlDB, _ := db.DB()
+	sqlDB.SetMaxOpenConns(1)
+	t.Cleanup(func() { _ = sqlDB.Close() })
+	if err = db.AutoMigrate(&authguard.State{}); err != nil {
+		t.Fatal(err)
+	}
+	return authguard.NewSQLStore(db)
+}
+func publicTestRequest(h *Handler, method, path, body string) *httptest.ResponseRecorder {
+	gin.SetMode(gin.TestMode)
+	router := gin.New()
+	_ = router.SetTrustedProxies(nil)
+	router.GET("/api/prompts/assistant/search", h.PublicPromptSearch)
+	router.POST("/api/prompts/assistant/optimize", h.PublicPromptOptimize)
+	request := httptest.NewRequest(method, path, strings.NewReader(body))
+	request.RemoteAddr = "192.0.2.1:1234"
+	request.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, request)
+	return w
+}
+
+func TestOrdinaryPromptProcessDoesNotExposeFreeAssistant(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	router := gin.New()
+	h := &Handler{}
+	h.RegisterPublicRoutes(router.Group("/api"))
+	for _, path := range []string{"/api/prompts/assistant/search", "/api/prompts/assistant/optimize"} {
+		for _, method := range []string{"GET", "POST"} {
+			w := httptest.NewRecorder()
+			router.ServeHTTP(w, httptest.NewRequest(method, path, nil))
+			if w.Code != 404 {
+				t.Errorf("free route leaked into ordinary process: %s %s: %d", method, path, w.Code)
+			}
+		}
+	}
+	for _, route := range router.Routes() {
+		if route.Path == "/api/prompts" && route.Method == "GET" {
+			return
+		}
+	}
+	t.Fatal("existing public library route was removed")
+}
+func TestPublicPromptSearchIsAnonymousAndReturnsOnlyPairedPublicData(t *testing.T) {
+	catalog := &publicTestCatalog{}
+	h := &Handler{publicAssistant: &publicAssistant{catalog: catalog, guard: publicTestStore(t)}}
+	result := publicTestRequest(h, "GET", "/api/prompts/assistant/search?query=咖啡馆%20海报&scope=mine", "")
+	if result.Code != 200 {
+		t.Fatal(result.Code, result.Body.String())
+	}
+	var data struct {
+		Items []publicPromptItem `json:"items"`
+	}
+	if json.Unmarshal(result.Body.Bytes(), &data) != nil || len(data.Items) != 1 || data.Items[0].Prompt != "保留文字周末见" || !strings.HasPrefix(data.Items[0].ExampleImageURL, "https://static.inkroom.ai/") {
+		t.Fatal(result.Body.String())
+	}
+	if catalog.calls != 1 {
+		t.Fatal(catalog.calls)
+	}
+}
+func TestPublicPromptCatalogFailureDoesNotRunOptimizer(t *testing.T) {
+	catalog := &publicTestCatalog{err: errors.New("private db detail")}
+	called := false
+	h := &Handler{publicAssistant: &publicAssistant{catalog: catalog, guard: publicTestStore(t), plan: func(string) (PublicPromptPlan, error) { called = true; return PublicPromptPlan{}, nil }}}
+	result := publicTestRequest(h, "GET", "/api/prompts/assistant/search?query=咖啡馆", "")
+	if result.Code != 503 || called || strings.Contains(result.Body.String(), "private db detail") {
+		t.Fatal(result.Code, result.Body.String())
+	}
+}
+func TestPublicPromptOptimizationStrictInputNoImageAndNoWallet(t *testing.T) {
+	var calls int
+	a := &publicAssistant{catalog: &publicTestCatalog{}, guard: publicTestStore(t), plan: func(query string) (PublicPromptPlan, error) {
+		return PublicPromptPlan{Model: "text-model", Run: func(context.Context) (string, error) { calls++; return "保留文字周末见", nil }}, nil
+	}}
+	h := &Handler{publicAssistant: a}
+	for _, body := range []string{`{"query":"coffee","model":"image-model"}`, `{"query":"coffee"} {}`, `{"query":""}`, `{"query":"` + strings.Repeat("a", 5000) + `"}`} {
+		if r := publicTestRequest(h, "POST", "/api/prompts/assistant/optimize", body); r.Code != 400 {
+			t.Fatal(r.Code, r.Body.String())
+		}
+	}
+	result := publicTestRequest(h, "POST", "/api/prompts/assistant/optimize", `{"query":"咖啡馆"}`)
+	if result.Code != 200 || calls != 1 || !strings.Contains(result.Body.String(), `"exampleImageUrl":null`) {
+		t.Fatal(result.Code, result.Body.String(), calls)
+	}
+}
+func TestPublicPromptCallCountSurvivesUnknownFailureAndNewHandler(t *testing.T) {
+	store := publicTestStore(t)
+	count := 0
+	plan := func(string) (PublicPromptPlan, error) {
+		return PublicPromptPlan{Model: "model", Run: func(context.Context) (string, error) { count++; return "", errors.New("unknown provider result") }}, nil
+	}
+	for i := 0; i < 3; i++ {
+		a := &publicAssistant{catalog: &publicTestCatalog{}, guard: store, plan: plan}
+		if r := publicTestRequest(&Handler{publicAssistant: a}, "POST", "/api/prompts/assistant/optimize", `{"query":"coffee"}`); r.Code != 502 {
+			t.Fatal(r.Code)
+		}
+	}
+	b := &publicAssistant{catalog: &publicTestCatalog{}, guard: store, plan: plan}
+	r := publicTestRequest(&Handler{publicAssistant: b}, "POST", "/api/prompts/assistant/optimize", `{"query":"coffee"}`)
+	if r.Code != 429 || count != 3 || r.Header().Get("Retry-After") == "" {
+		t.Fatal(r.Code, r.Body.String(), count)
+	}
+}
+func TestPublicPromptSharedCallLimitIsAtomicAcrossReplicas(t *testing.T) {
+	store := publicTestStore(t)
+	var accepted atomic.Int32
+	var group sync.WaitGroup
+	for i := 0; i < 40; i++ {
+		group.Add(1)
+		go func(i int) {
+			defer group.Done()
+			a := &publicAssistant{guard: store}
+			if a.reserve(context.Background(), "192.0.2."+strconv.Itoa(i+1), true) == nil {
+				accepted.Add(1)
+			}
+		}(i)
+	}
+	group.Wait()
+	if accepted.Load() != 30 {
+		t.Fatal("global minute call limit admitted", accepted.Load())
+	}
+}
+func TestPublicPromptRequiresSharedGuardAndConfiguredPlanner(t *testing.T) {
+	h := New(nil)
+	if r := publicTestRequest(h, "GET", "/api/prompts/assistant/search?query=coffee", ""); r.Code != 503 {
+		t.Fatal(r.Code)
+	}
+	a := &publicAssistant{catalog: &publicTestCatalog{}, guard: publicTestStore(t)}
+	if r := publicTestRequest(&Handler{publicAssistant: a}, "POST", "/api/prompts/assistant/optimize", `{"query":"coffee"}`); r.Code != 503 {
+		t.Fatal(r.Code)
+	}
+}
+
+type publicTestClockStore struct {
+	authguard.Store
+	now time.Time
+}
+
+func (s *publicTestClockStore) Transact(ctx context.Context, keys []string, fn func(map[string]*authguard.State, time.Time) error) error {
+	return s.Store.Transact(ctx, keys, func(states map[string]*authguard.State, _ time.Time) error { return fn(states, s.now) })
+}
+
+func TestPublicPromptDailyCallLimitsUseBeijingMidnightWithoutMoneyCounters(t *testing.T) {
+	for _, scenario := range []struct {
+		name, key string
+		limit     int
+	}{
+		{"per-ip", authguard.Key("public-prompts-optimize-day-v1", "192.0.2.1"), 10},
+		{"global", authguard.Key("public-prompts-calls-v1", "global"), 500},
+	} {
+		t.Run(scenario.name, func(t *testing.T) {
+			clock := &publicTestClockStore{Store: publicTestStore(t), now: time.Date(2026, 10, 18, 15, 59, 50, 0, time.UTC)}
+			bucket := (clock.now.Unix()+8*3600)/86400*86400 - 8*3600
+			if err := clock.Transact(context.Background(), []string{scenario.key}, func(states map[string]*authguard.State, _ time.Time) error {
+				states[scenario.key].Count, states[scenario.key].StartedAt = scenario.limit, bucket
+				return nil
+			}); err != nil {
+				t.Fatal(err)
+			}
+			a := &publicAssistant{guard: clock}
+			if err := a.reserve(context.Background(), "192.0.2.1", true); !errors.Is(err, errPublicPromptLimit) {
+				t.Fatal("daily call cap ignored", err)
+			}
+			clock.now = clock.now.Add(20 * time.Second)
+			if err := a.reserve(context.Background(), "192.0.2.1", true); err != nil {
+				t.Fatal("Beijing midnight did not reset call cap", err)
+			}
+		})
+	}
+}
+func TestPublicPromptIPv6IdentityAndImageBoundary(t *testing.T) {
+	if publicPromptIdentity("2001:db8::1") != publicPromptIdentity("2001:db8::2") {
+		t.Fatal("IPv6 quota reset")
+	}
+	for _, raw := range []string{"https://inkroom.ai/api/prompt-assets/x/content", "data:image/png;base64,x", "/api/prompt-assets/x/../secret"} {
+		if publicPromptImageURL(raw) != "" {
+			t.Fatal(raw)
+		}
+	}
+}
+
+func TestPublicPromptEmptyResultIsExplicitAndDistinctFromFailure(t *testing.T) {
+	h := &Handler{publicAssistant: &publicAssistant{catalog: &publicTestCatalog{}, guard: publicTestStore(t)}}
+	r := publicTestRequest(h, "GET", "/api/prompts/assistant/search?query=unmatchedkeyword", "")
+	if r.Code != 200 || !strings.Contains(r.Body.String(), `"items":[]`) || !strings.Contains(r.Body.String(), `"kind":"library"`) {
+		t.Fatal(r.Code, r.Body.String())
+	}
+}

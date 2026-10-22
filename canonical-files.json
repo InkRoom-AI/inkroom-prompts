@@ -1,0 +1,282 @@
+[
+  {
+    "source": "prompts/.cursor-plugin/plugin.json",
+    "destination": ".cursor-plugin/plugin.json",
+    "bytes": 884,
+    "sha256": "787c0271475abc2e52dcf385301deb3e6e4285d8bb2703fce2194898fff881ae",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/.dockerignore",
+    "destination": ".dockerignore",
+    "bytes": 161,
+    "sha256": "217d7e6f27a1bf8a68fb2e47cbc01d3faca60e1f388eb5c3fc03f432e4681156",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/.gitignore",
+    "destination": ".gitignore",
+    "bytes": 20,
+    "sha256": "ba79bbc25fa8951489e77f28f1561c2e9388115cb33f1c606424f8e08169f96b",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/CHANGELOG.md",
+    "destination": "CHANGELOG.md",
+    "bytes": 2730,
+    "sha256": "33722eeea9ef75b7d534ad3403197558d1297b9e05e4899293512c0e396a93f3",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/Dockerfile",
+    "destination": "Dockerfile",
+    "bytes": 717,
+    "sha256": "3ffa4688fe296277798d641af5fc153bb12752bcd10327980e7890188ad11a70",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/LICENSE",
+    "destination": "LICENSE",
+    "bytes": 1064,
+    "sha256": "adf054226463f09a705df429cdb799eddb3433b8f043ed34dfd58866e133d196",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/MARKETPLACE.md",
+    "destination": "MARKETPLACE.md",
+    "bytes": 3164,
+    "sha256": "9d588e58a7b5787ed54ea36516497166b7c47c9440e4de1759f33c522ac827a3",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/PRIVACY.md",
+    "destination": "PRIVACY.md",
+    "bytes": 2427,
+    "sha256": "5b25a4b8833d6a69dada21418f83e29d9e98a74ec156a8bacf00f946567c2e6e",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/README.md",
+    "destination": "README.md",
+    "bytes": 8853,
+    "sha256": "38df91b7aa2c6fab8d4dc66088e2ef6e4274a96343a0a41c13d5d8a690980aa8",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/README.zh-CN.md",
+    "destination": "README.zh-CN.md",
+    "bytes": 6643,
+    "sha256": "041cd211862b9e07c9b8be40392ce4c98d0f722d8e4bc6234aefaa7e3895ebd4",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/README.md",
+    "destination": "backend/README.md",
+    "bytes": 6820,
+    "sha256": "ca615dc5cb65edb245c24998108d1c3cd781d5fdde8817a93c807e8673bce47d",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/host-wiring.patch",
+    "destination": "backend/host-wiring.patch",
+    "bytes": 2945,
+    "sha256": "31cd98045dfc29a152c08f20d3d0c0a5a9649f4c7bdeb06a98d16a055cff0bb0",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_assistant.go.txt",
+    "destination": "backend/public_assistant.go.txt",
+    "bytes": 10028,
+    "sha256": "78c77d1eb4ee6c59894d7347886f4b05d91b899878b578f4ac582b4afca68f56",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_assistant_output_test.go.txt",
+    "destination": "backend/public_assistant_output_test.go.txt",
+    "bytes": 1004,
+    "sha256": "fe282ecc5eaa8b12ac19ff04144853fe77c51048d175e79e9c2ff154bf3c74c7",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_assistant_test.go.txt",
+    "destination": "backend/public_assistant_test.go.txt",
+    "bytes": 9310,
+    "sha256": "1bd19a4d55c6497e5329b318a698a2259e5a0c483978eecbe22c02188ba45da5",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_catalog.go.txt",
+    "destination": "backend/public_catalog.go.txt",
+    "bytes": 1029,
+    "sha256": "62855c1d3c5e7f73efc727cf0e47cbffd16be656747c62fd0baaaadeee85e15b",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_prompts.go.txt",
+    "destination": "backend/public_prompts.go.txt",
+    "bytes": 5885,
+    "sha256": "4d0e9c72c22687bb231373fd822fd41b121d0e57cf0bc06633c7bcbf787dd8ad",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_prompts_test.go.txt",
+    "destination": "backend/public_prompts_test.go.txt",
+    "bytes": 15512,
+    "sha256": "ca0d24d3bfb01aa4dc21ebcff55e4e49f6614ecb0a6599de65a5f01d653d80c9",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_prompts_transport_test.go.txt",
+    "destination": "backend/public_prompts_transport_test.go.txt",
+    "bytes": 4431,
+    "sha256": "f5a22e96e2bc5a9e923de6cc39bc3f4a7621e6de132c33ba7ea441f94773c23c",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/public_readonly_test.go.txt",
+    "destination": "backend/public_readonly_test.go.txt",
+    "bytes": 4229,
+    "sha256": "5be1f41fc7d5c0d93cc9145a25b46c7fe720505a93682e6ed627fcb89746fe59",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/backend/repo_public_keywords_test.go.txt",
+    "destination": "backend/repo_public_keywords_test.go.txt",
+    "bytes": 1401,
+    "sha256": "534fa9f67bec08d858efd3aee3f65a8fcc141f62813dcff2e8a50c92ce02e1e6",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/examples/README.md",
+    "destination": "examples/README.md",
+    "bytes": 1148,
+    "sha256": "119063f79639a581bd949e984a43027c1d177843c7f6c3d6ecaa673f04a5febd",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/examples/mcp-test.json",
+    "destination": "examples/mcp-test.json",
+    "bytes": 220,
+    "sha256": "b0581b58d7b08d2362c56ea2f970bbb547d354779ec4a4bc11b81191fc1945dd",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/examples/mcp.json",
+    "destination": "examples/mcp.json",
+    "bytes": 241,
+    "sha256": "f938ff6a7b30c6779629a6c7ab5dd64b0cd3966027d1e7e1b45a550bf3f01aba",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/package-lock.json",
+    "destination": "package-lock.json",
+    "bytes": 42992,
+    "sha256": "cfd20b6c715896b94e89bcca10fc9bc7e89eff7392690d41704d096029e6ecce",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/package.json",
+    "destination": "package.json",
+    "bytes": 1084,
+    "sha256": "a2f9b9a368e0e29944f50dbf737993c81e6fd94700b0ffbfa1863b354c8eb621",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/release.json",
+    "destination": "release.json",
+    "bytes": 789,
+    "sha256": "8e3738ce9f07c1dd5e8c7e9f1080501ebaec0a9c4baf928ad2028c844c465980",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/scripts/verify-release.mjs",
+    "destination": "scripts/verify-release.mjs",
+    "bytes": 1877,
+    "sha256": "eae12c2ad3ce6b1eba14fa4029f81e34a9e7a56b39b5fcd47a39f74be6078647",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/skills/inkroom-prompts/LICENSE",
+    "destination": "skills/inkroom-prompts/LICENSE",
+    "bytes": 1064,
+    "sha256": "adf054226463f09a705df429cdb799eddb3433b8f043ed34dfd58866e133d196",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/skills/inkroom-prompts/SKILL.md",
+    "destination": "skills/inkroom-prompts/SKILL.md",
+    "bytes": 4710,
+    "sha256": "c9db655291b44cb1bc3ed925f02770ccdfd9abb1784cef3377d958710d369a70",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/skills/inkroom-prompts/scripts/client.mjs",
+    "destination": "skills/inkroom-prompts/scripts/client.mjs",
+    "bytes": 6120,
+    "sha256": "da738a498fd650d3733a69f3c18c9029b50f199b0c9a7f78fc6e681a69eab5d6",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/skills/inkroom-prompts/scripts/prompts.mjs",
+    "destination": "skills/inkroom-prompts/scripts/prompts.mjs",
+    "bytes": 1191,
+    "sha256": "b5dba311cdd7b78dc576f643fe28a29f1cd5c7d34662e3e21e96b43e92bdb01f",
+    "mode": "0o775"
+  },
+  {
+    "source": "prompts/skills/inkroom-prompts/scripts/public-catalog.mjs",
+    "destination": "skills/inkroom-prompts/scripts/public-catalog.mjs",
+    "bytes": 8380,
+    "sha256": "352f52a3277cb6d0a1dbdc130c5ac15cf5028a5ddfbae74194be34d64c94d266",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/src/cli.mjs",
+    "destination": "src/cli.mjs",
+    "bytes": 1447,
+    "sha256": "826856db9898c9c29fd1663ff32d3266df22444dea9c949b489fc1242cb0c0a1",
+    "mode": "0o775"
+  },
+  {
+    "source": "prompts/src/client.mjs",
+    "destination": "src/client.mjs",
+    "bytes": 224,
+    "sha256": "d737d84601c1405c3393f78cb0f0f2019ca898dda7be5ceed463434426bfdb78",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/src/http.mjs",
+    "destination": "src/http.mjs",
+    "bytes": 1563,
+    "sha256": "0630ce231c5556a0ee0ef4f49f052e5d998a17e4bd1e0955e3c19e49e79ec8c8",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/src/server.mjs",
+    "destination": "src/server.mjs",
+    "bytes": 3800,
+    "sha256": "1693c61d1f44bb536cfe200e694188e79938ebfbc13b24e22d2aa0a9e4cc5e61",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/test/cli-origin.test.mjs",
+    "destination": "test/cli-origin.test.mjs",
+    "bytes": 6002,
+    "sha256": "0a8c8676f7bfcccea8dfe101bd95bc945a3099ecd2071b2a3d498b6641f91373",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/test/client.test.mjs",
+    "destination": "test/client.test.mjs",
+    "bytes": 4391,
+    "sha256": "ccd5e2b773f8a5a3cc052b3b0695f8fad10f4c94e5791ea7dc028d5bbedaf7b3",
+    "mode": "0o664"
+  },
+  {
+    "source": "prompts/test/mcp.test.mjs",
+    "destination": "test/mcp.test.mjs",
+    "bytes": 4005,
+    "sha256": "bb712600902834141088f4f92875b7b076f236002454d4e5eca4fb018df29a60",
+    "mode": "0o664"
+  }
+]
